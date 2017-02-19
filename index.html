@@ -1,0 +1,383 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Quiz as a team!</title>
+    <style>
+
+
+
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 16px "Open Sans", sans-serif; 
+      background-color: rgba(242,246,248,1);
+background-color: -moz-linear-gradient(left, rgba(242,246,248,1) 0%, rgba(216,225,231,1) 50%, rgba(181,198,208,1) 51%, rgba(224,239,249,1) 100%);
+background-color: -webkit-gradient(left top, right top, color-stop(0%, rgba(242,246,248,1)), color-stop(50%, rgba(216,225,231,1)), color-stop(51%, rgba(181,198,208,1)), color-stop(100%, rgba(224,239,249,1)));
+background-color: -webkit-linear-gradient(left, rgba(242,246,248,1) 0%, rgba(216,225,231,1) 50%, rgba(181,198,208,1) 51%, rgba(224,239,249,1) 100%);
+background-color: -o-linear-gradient(left, rgba(242,246,248,1) 0%, rgba(216,225,231,1) 50%, rgba(181,198,208,1) 51%, rgba(224,239,249,1) 100%);
+background-color: -ms-linear-gradient(left, rgba(242,246,248,1) 0%, rgba(216,225,231,1) 50%, rgba(181,198,208,1) 51%, rgba(224,239,249,1) 100%);
+background-color: linear-gradient(to right, rgba(242,246,248,1) 0%, rgba(216,225,231,1) 50%, rgba(181,198,208,1) 51%, rgba(224,239,249,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f6f8', endColorstr='#e0eff9', GradientType=1 );}
+
+      /* form elements */
+      label {
+        display: block;
+      }
+
+      input[type="text"] {
+        -webkit-box-shadow: 0px 0px 25px 2px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0px 0px 25px 2px rgba(0,0,0,0.75);
+        box-shadow: 0px 0px 25px 2px rgba(0,0,0,0.75);
+        display: block;
+        margin: 10 auto;
+        margin-left: auto;
+        margin-right: auto;
+        width: 25%;
+        font-family: "Open Sans", sans-serif;
+        font-size: 20px;
+        text-align:center;
+        padding: 5px;
+      }
+      input[type="text"]:focus {
+        outline: none;
+      }
+
+
+      /* Each class has an animation. Upon submission, classes are removed and added */
+      .correct {
+        animation-name: correct_answer;
+        animation-duration: 1s;
+      }      
+
+      .neutral {
+        animation-name: neutral_answer;
+        animation-duration: 1s;
+      }
+
+      .wrong {
+        animation-name: wrong_answer;
+        animation-duration: 1s;
+      }
+
+      /* The animation code */
+      @keyframes correct_answer {
+          0% {
+             -webkit-box-shadow: 0px 0px 25px 2px rgba(27, 248, 16, 0.91);
+             -moz-box-shadow: 0px 0px 25px 2px rgba(27, 248, 16, 0.91);
+              box-shadow: 0px 0px 25px 2px rgba(27, 248, 16, 0.91);
+          }
+          100% {
+              box-shadow: 0px 0px 25px 2px rgba(0,0,0,0.75);         
+             -webkit-box-shadow: 0px 0px 25px 2px rgba(0,0,0,0.75);
+             -moz-box-shadow: 0px 0px 25px 2px rgba(0,0,0,0.75);
+          }
+      }
+
+      @keyframes neutral_answer {
+          0% {
+             -webkit-box-shadow: 0px 0px 25px 2px rgba(236, 253, 58, 0.72);
+             -moz-box-shadow: 0px 0px 25px 2px rgba(236, 253, 58, 0.72);
+              box-shadow: 0px 0px 25px 2px rgba(236, 253, 58, 0.72);
+          }
+          100% {
+              box-shadow: 0px 0px 25px 2px rgba(0,0,0,0.75);         
+             -webkit-box-shadow: 0px 0px 25px 2px rgba(0,0,0,0.75);
+             -moz-box-shadow: 0px 0px 25px 2px rgba(0,0,0,0.75);
+          }
+      }
+
+      @keyframes wrong_answer {
+          0% {
+             -webkit-box-shadow: 0px 0px 25px 2px rgba(248, 16, 16, 0.87);
+             -moz-box-shadow: 0px 0px 25px 2px rgba(248, 16, 16, 0.87);
+              box-shadow: 0px 0px 25px 2px rgba(248, 16, 16, 0.87);
+          }
+          100% {
+              box-shadow: 0px 0px 25px 2px rgba(0,0,0,0.75);         
+             -webkit-box-shadow: 0px 0px 25px 2px rgba(0,0,0,0.75);
+             -moz-box-shadow: 0px 0px 25px 2px rgba(0,0,0,0.75);
+          }
+      }
+
+      .submitButton {
+        display: block;
+        margin: 0 auto;
+        margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 5px;
+      }
+
+      #formWrapper {
+        align: center;
+      }
+
+      #loginFormWrapper {
+        align: center;
+        text-align: center;
+      }
+
+
+      table, th, td {
+          text-align: center;
+          border: 1px solid black;
+          border-collapse: collapse;
+      }
+      th, td {
+          padding: 5px;
+          overflow: hidden;
+          width: 33%;
+          height: 30px;
+          font-weight: bold;
+      }
+
+      table {
+        width: 100%;
+        layout: fixed;
+      }
+
+      #nicknameInstruction {
+        font-size: 22px;
+        margin: 5px;
+      }
+
+      #question {
+        text-align: center;
+        font-size: 26 px;
+        margin: 10px;
+      }
+
+      #timerwrapper {
+        font-size: 22px;
+      }
+      #record {
+        display: inline-block;
+        color: green;
+      }
+
+      #timer {
+        left: 10px;
+      }
+
+      #counterwrapper {
+        /*display: inline-block;*/
+        position:absolute;
+        top:0;
+        right:5px;
+        font-size: 22px;
+        text-align: right;
+      }
+
+      #topScore {
+        position: absolute;
+        top:0;
+        width: 100%;
+        margin: 0 auto;
+        font-size: 24px;
+        text-align: center;
+        font-weight: bold;
+        color: green;
+      }
+
+      #stats {
+        position: relative;
+      }
+
+
+
+
+/*      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages li { padding: 5px 10px; }
+      #messages li:nth-child(odd) { background: #eee; }*/
+    </style>
+  </head>
+  <body>
+    <div id = "stats">
+      <div id="topScore"></div>
+      <div id = "timerwrapper">
+        <div id="record"></div>
+        <div id="timer"></div>
+      </div>
+      <div id = "counterwrapper">
+        <div id="counter"></div>
+        <div id="groupFraction"></div>
+        <div id="yourScore"></div>
+      </div>
+    </div>
+
+    <div id = "loginFormWrapper">
+      <div id="nicknameInstruction">Enter a nickname</div>
+      <form action="" id="nicknameForm">
+        <input id="nickname" type="text" autocomplete="off"/>
+        <button id= "submitName" class="submitButton">Start Playing!</button>
+      </form>
+    </div>
+
+    <div id = "formWrapper" style="display: none;">
+      <form action="" id="answerForm">
+        <input id="answer"  type="text" placeholder="Type an answer" onfocus="this.placeholder = ''" autocomplete="off"/>
+        <button id = "submit" class="submitButton">Submit</button>
+      </form>
+    </div>
+
+
+    <div id = "tableWrapper">
+      <h2 id="question"></h2>
+      <table id="tableAllAnswers">
+      </table>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      var socket = io();
+      var currentqpackage;
+      var nickname;
+      var myscore;
+      var groupscore;
+      var playing=false;
+      
+      // Handle when the server sends to this socket the current question package
+      // Should be the first communication between server and client, so I'm treating it as a constructor of sorts
+      socket.on('joined game', function(qpackage) {
+        $('#loginFormWrapper').hide();
+        $('#formWrapper').show();
+        playing=true;
+        myscore = 0;
+        currentqpackage = qpackage;
+        groupscore = currentqpackage.groupScore;
+        nickname = qpackage.clientID;
+        populateTable(currentqpackage);
+      });
+
+      socket.on('wrong answer', function() {
+        $('#answer').removeClass().offset($('#answer').offset()).addClass("wrong");
+      });
+
+      socket.on('new question', function(qpackage) {
+        console.log("GOT A NEW QUESTION");
+
+        myscore = 0;
+        currentqpackage = qpackage;
+        groupscore = currentqpackage.groupScore;
+        console.log(currentqpackage.question);
+        populateTable(currentqpackage);
+        // location.reload();
+      });
+
+      // A new valid answer was submitted by another user. Live update the table of answers to reflect this
+      socket.on('update answer', function(answerPackage) {
+        var id = '#answer' + answerPackage.index.toString();
+        $(id).html(answerPackage.text);
+        currentqpackage.answers[answerPackage.index] = answerPackage.text;
+        if (answerPackage.clientID == nickname) {
+          $('#answer').val(''); // Only clear field when answer is correct
+          $('#answer').removeClass().offset($('#answer').offset()).addClass("correct");
+          $(id).css("color", "green");
+          // $('#groupFraction').html('Group progress: 0/' + currentqpackage.answers.length.toString());
+          myscore++;
+          $('#yourScore').html('Your score: ' + myscore.toString());
+        }
+        groupscore++;
+        $('#groupFraction').html('Group score: ' + groupscore.toString() + '/' + currentqpackage.answers.length.toString());
+
+      });
+
+      // Display the top scores
+      socket.on('final scores', function(highScore) {
+        var score = highScore[1];
+        var name = highScore[0];
+        var htmlString = name + " had the highest score, answering " + score + "!";
+        $('#topScore').html(htmlString);
+
+      });
+
+      // Update the timer
+      socket.on('timer', function(seconds) {
+        if (!playing) {return;}
+        if ((seconds < currentqpackage.record_time) || (currentqpackage.record_time == -1)) {
+          $('#timer').css("color", "green");
+        } else {
+          $('#timer').css("color", "red");
+        }
+        $('#timer').html("Time elapsed: " + seconds.toString());
+      });
+
+      // Update the user count
+      socket.on('update count', function(users) {
+        if (!playing) {return;}
+        $('#counter').html("Users online: " + users.toString());
+      });
+
+      // Nickname was already taken
+      socket.on('nickname taken', function() {
+        $('#nickname').removeClass().offset($('#nickname').offset()).addClass("wrong");
+        $('#nicknameInstruction').html("That nickname is already taken. Try another one");
+      });
+
+      // Handle the nickname form submission
+      $('#nicknameForm').submit(function() {
+        var input = $('#nickname').val();
+        socket.emit('nickname submission', input);
+        return false;
+      });
+
+      // Handle the form submission (answer submission)
+      $('#answerForm').submit(function() {
+        var input = $('#answer').val();
+        if (currentqpackage.answers.indexOf(input.capitalizeFirstLetter()) > -1) {
+          // Answer was already submitted, clear typing
+          $('#answer').val(''); 
+          $('#answer').removeClass().offset($('#answer').offset()).addClass("neutral");
+
+          return false;
+        }
+
+        socket.emit('answer submission', input);
+        return false;
+      });
+
+      // Function that populates table once the socket receives the question package
+      function populateTable(currentqpackage) {
+        var numCols = 3;
+        var htmlString = '';
+        for (var i = 0; i < currentqpackage.answers.length; i++) {
+          if (i % numCols == 0) {
+            htmlString += "<tr>";
+          }
+          htmlString += '<td id="answer' + i.toString() +'">' + currentqpackage.answers[i] + "</td>";
+          if ((i % numCols == 2) || (i == currentqpackage.answers.length-1)) {
+            htmlString += "</tr>";
+          }
+        }
+
+        $('#tableAllAnswers').html(htmlString);
+        $('#topScore').html('');
+        $('#question').html(currentqpackage.question);
+        $('#timer').html("Time elapsed: " + currentqpackage.time_elapsed.toString());
+        if ((currentqpackage.time_elapsed > currentqpackage.record_time) && (currentqpackage.record_time != -1)) {
+          $('#timer').css("color", "red");
+        } else {
+          $('#timer').css("color", "green");
+        }
+        if (currentqpackage.record_time == -1) {
+          $('#record').html("Record time: Not established yet");
+        } else {
+          $('#record').html("Record time: " + currentqpackage.record_time);
+        }
+        $('#groupFraction').html('Group score: ' + groupscore.toString() + '/' + currentqpackage.answers.length.toString());
+        $('#yourScore').html('Your score: ' + myscore.toString());
+
+      }
+
+      String.prototype.capitalizeFirstLetter = function() {
+        return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+      }
+
+
+    </script>
+
+  </body>
+</html>
