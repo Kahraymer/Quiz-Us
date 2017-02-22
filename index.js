@@ -29,7 +29,6 @@ app.get('/', function(req, res) {
 
 
 
-// TODO: Send out top scores, and your score before moving on to the next question
 // TODO: (?) Allow someone to log back in and continue (?)
 
 
